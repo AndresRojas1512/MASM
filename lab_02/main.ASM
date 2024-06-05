@@ -1,29 +1,26 @@
 StkSeg SEGMENT PARA STACK 'STACK'
-    DB 200h DUP (?)
+    DB 200h DUP (?) ; stack segment of 512 bytes
 StkSeg ENDS
 
 DataS SEGMENT WORD 'DATA'
-LoopCount DB '3'
-HelloMessage DB 'Hello, world !', 13, 10
-;LoopCount DB '3'
+helloMessage DB 'Hello, world !', 13, 10, '$'
+loopCount DB 3
 DB '$'
 DataS ENDS
 
 Code SEGMENT WORD 'CODE'
     ASSUME CS:Code, DS:DataS
 start:
-    mov AX, DataS
-    mov DS, AX
+    mov ax, DataS
+    mov ds, ax
     xor cx, cx
-    ;dec cx
-    ;mov cx, 0100h
-    mov cl, [LoopCount]
-    mov DX, OFFSET HelloMessage
-    mov AH, 9
+    mov cl, [loopCount]
+    mov dx, OFFSET helloMessage
+    mov ah, 9
 PrintMessage:
     int 21h
     loop PrintMessage
-    mov AH, 4Ch
+    mov ah, 4Ch ; end the program
     int 21h
 Code ENDS
 END start
