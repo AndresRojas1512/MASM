@@ -1,20 +1,20 @@
-SD1 SEGMENT para common 'DATA'
-	C1 LABEL byte
-	ORG 1h
-	C2 LABEL byte
+SD1 SEGMENT para common 'DATA'			; определение сегмента данных как общего (common) для оьмена даннымы между модулями
+	C1 LABEL byte						; метка C1 для данных, начальный адрес 01h в сегменте
+	ORG 1h								; смещение начала данных в сегменте на 1 байт вперед
+	C2 LABEL byte						; определение метки C2, она идет после метки C1
 SD1 ENDS
 
-CSEG SEGMENT para 'CODE'
-	ASSUME CS:CSEG, DS:SD1
+CSEG SEGMENT para 'CODE'				; сегмент кода
+	ASSUME CS:CSEG, DS:SD1				; установка сегментных регистров
 main:
-	mov ax, SD1
-	mov ds, ax
-	mov ah, 2
-	mov dl, C1
-	int 21h
-	mov dl, C2
-	int 21h
-	mov ax, 4c00h
+	mov ax, SD1							; загрузка адреса сегмента данных SD1 в AX
+	mov ds, ax							; установка DS
+	mov ah, 2							; Вывод символа в stdcout
+	mov dl, C1							; загрузка значения по адресу метки C1 в DL
+	int 21h								; прерывание для вывода
+	mov dl, C2							; загрузка значения по адресу метки С2 в DL
+	int 21h								; прерывание для вывода
+	mov ax, 4c00h						; завершение
 	int 21h
 CSEG ENDS
 END main

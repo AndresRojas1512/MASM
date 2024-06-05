@@ -1,20 +1,20 @@
-PUBLIC output_X
-EXTRN X: byte
+PUBLIC output_X 				; делает процедуру output_X доступной из других модулей
+EXTRN X: byte 					; внешняя ссылка на переменную X типа byte (находится в другом файле)
 
-DS2 SEGMENT AT 0b800h
-	CA LABEL byte
-	ORG 80 * 2 * 2 + 2 * 2
-	SYMB LABEL word
+DS2 SEGMENT AT 0b800h 			; сегмент DS2. Начинет с вдреса B8000h (видеопамять для текстоаого режима)
+	CA LABEL byte				; метка для текущего адреса видеопамяти
+	ORG 80 * 2 * 2 + 2 * 2		; установка начала сегмента в конкретную позицию (начало 3ей строки, третий символ)
+	SYMB LABEL word				; мекта для слова (два байта для атрибутов символа)
 DS2 ENDS
 
-CSEG SEGMENT PARA PUBLIC 'CODE'
+CSEG SEGMENT PARA PUBLIC 'CODE'	; сегмент кода
 	assume CS:CSEG, ES:DS2
-output_X proc near
-	mov ax, DS2
-	mov es, ax
-	mov ah, 10
-	mov al, X
-	mov symb, ax
+output_X proc near				; начало процедуры output_X
+	mov ax, DS2					; перемещение адреса DS2 в AX
+	mov es, ax					; ES указывает на видеопамять. Перемещение в сегмент es адрес в регистре ax
+	mov ah, 10					; хранение цвета в ah (зеленный)
+	mov al, X					; хранение символа Х в al
+	mov symb, ax				; перемещение символа и атрибута как слова в видеопамять в позицию, указанную SYMB
 	ret
 output_X endp
 CSEG ENDS

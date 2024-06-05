@@ -1,21 +1,20 @@
-PUBLIC output_X
-EXTRN X: byte
+PUBLIC output_X                     ; процедура output_X будет доступной для лругих модулей
+EXTRN X: byte                       ; переменная X нахотится в другом модуле
 
-CSEG SEGMENT PARA PUBLIC 'CODE'
+CSEG SEGMENT PARA PUBLIC 'CODE'     ; сегмент кода
     assume CS:CSEG
-output_X proc near
-    mov dl, ' '
-    mov ah, 02h
-    int 21h
+output_X proc near                  ; процедура для вывода информации
+    mov dl, ' '                     ; загрузка пробела в dl для вывода
+    mov ah, 02h                     ; предача номер фунции для вывода одного символа
+    int 21h                         ; прерывание для вывода сегмента
     
-    mov al, X
-    add al, 5
+    mov al, X                       ; загрузка значения Х в AL
+    add al, 5                       ; + 5
+    add al, '0'                     ; преобразование числа в символ
     
-    add al, '0'
-    
-    mov dl, al
-    mov ah, 02h
-    int 21h
+    mov dl, al                      ; перемещение измененного символа в DL
+    mov ah, 02h                     ; передача номер функции для вывода символа на экран
+    int 21h                         ; прерывание и вывод символа
     
     ret
 output_X endp
