@@ -2,14 +2,14 @@
 .MODEL FLAT, C
 .STACK
 .CODE
-public  mymemmove	;объявление функции, чтобы ее видела сишная часть кода
-mymemmove PROC
-		push ebp		;пролог функции
+public  mymemmove	;объявление функции, чтобы ее видела C часть кода
+mymemmove proc
+		push ebp
 		mov ebp,esp
-		push esi		; сохранить регистры. По соглашению си ebx, esi, edi должны сохраняться
+		push esi		; сохранить регистры. По соглашению С esi, edi должны сохраняться
 		push edi
 		mov edi, [ebp+8]	;адрес назначения
-	        mov esi, [ebp+12]	;адрес откуда копировать
+	    mov esi, [ebp+12]	;адрес откуда копировать
 		mov ecx, [ebp+16]	;количество копируемых байт
 		cmp esi, edi		;если источник располагается правее приемника
 		jnb move			;то сразу копировать
@@ -24,7 +24,7 @@ move:		jecxz fin		;если копировать нечего, закончить
 fin:		cld				;вернуть прямое направление строковых команд
 		pop edi			;восстановить регистры
 		pop esi
-		pop ebp			;эпилог функции
+		pop ebp
 ret
 mymemmove ENDP
 END

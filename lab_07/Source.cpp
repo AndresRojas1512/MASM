@@ -1,11 +1,12 @@
 #include <iostream>
 using namespace std;
 extern "C" void *mymemmove(char *dst, char *src, int len);
+
 _declspec(naked) int mystrlen(char *s)	//объявление функции naked, чтобы самостоятельно прописать пролог и эпилог
 {
 	_asm
 	{
-		push ebp	// пролог функции
+		push ebp
 		mov ebp, esp
 		push edi	// сохранить регистр.По соглашению си ebx, esi, edi должны сохраняться
 		mov edi, [ebp + 8]	// загрузить переданный указатель на строку

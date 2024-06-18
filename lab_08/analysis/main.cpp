@@ -2,7 +2,7 @@
 
 int main()
 {
-    measure_arif();
-    measure_sin();
+    measure_arithmetic();
+    measure_sinus();
     return 0;
 }

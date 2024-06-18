@@ -6,11 +6,9 @@
 
 #include "float_32.h"
 #include "double_64.h"
-#include "long_80.h"
 #include "sinus.h"
 
-void measure_arif();
-
-void measure_sin();
+void measure_arithmetic();
+void measure_sinus();
 
 #endif

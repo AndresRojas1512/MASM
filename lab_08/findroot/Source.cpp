@@ -4,44 +4,10 @@ using namespace std;
 int main()
 {
 	setlocale(LC_ALL, "Russian");//русская локаль
-	double pi1 = 3.14, pi2 = 3.141596;
-	double sin1, sin2, sin3, sin12, sin22, sin32, c2=2.0, c7=7;
-	//Сравнить точность вычислений sin pi и sin(pi/2) для приближённых значений 3.14, 3.141596 и значения, загружаемого командой сопроцессора.
-	_asm
-	{
-		fld pi1		//3.14
-		fsin		//sin(3.14)
-		fstp sin1	//сохранить sin(3.14)
-		fld pi1		//3.14
-		fdiv c2		//3.14/2
-		fsin		//sin(3.14/2)
-		fstp sin12	//сохранить sin(3.14/2)
-
-		fld pi2		//3.141596
-		fsin		//sin(3.141596)
-		fstp sin2	//сохранить sin(3.141596)
-		fld pi2		//3.141596
-		fdiv c2		//3.141596/2
-		fsin		//sin(3.141596/2)
-		fstp sin22	//сохранить sin(3.141596/2)
-
-		fldpi		//pi
-		fsin		//sin(pi)
-		fstp sin3	//сохранить sin(pi)
-		fldpi		//pi
-		fdiv c2		//pi/2
-		fsin		//sin(pi/2)
-		fstp sin32	//сохранить sin(pi/2)
-	}
-	// cout << "sin(3.14) = " << sin1 << endl;
-	// cout << "sin(3.14/2) = " << sin12 << endl;
-
-	// cout << "sin(3.141596) = " << sin2 << endl;
-	// cout << "sin(3.141596/2) = " << sin22 << endl;
-
-	// cout << "sin(pi) = " << sin3 << endl;
-	// cout << "sin(pi/2) = " << sin32 << endl;
-	double a = 0.7, b = 1,e=0.0001,x;
+	double c2=2.0, c7=7;
+	double a = 0.7, b = 1,e = 0.0001, x;
+	// double a = -1.5, b = -1, e = 0.0001, x;
+	// double a = -4, b = -3.5, e = 0.0001, x;
 	//уточнение корня методом деления пополам
 	_asm
 	{
